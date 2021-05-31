@@ -5,6 +5,7 @@
 FROM chrisyx511/baseimagealpine:latest
 RUN apk add --no-cache btrfs-progs
 COPY /root /
+RUN mkdir /config
 
 ENV HOURLY_SNAP true
 ENV HOURLY_SNAP_KEEP 24
