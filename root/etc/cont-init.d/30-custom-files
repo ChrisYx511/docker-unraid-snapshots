@@ -1,0 +1,13 @@
+#!/usr/bin/with-contenv bash
+## License
+# MIT License
+# See included LICENSE document or https://opensource.org/licenses/MIT
+
+if [ -d "/config/custom-snapshots.d" ]; then
+    for f in /config/custom-snapshots.d/*; do
+        if [ $f != "template" ]; then
+        (crontab -l ; cat "$f/cron"; echo) | crontab -
+        fi
+    done
+fi
+exit $?

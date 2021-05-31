@@ -1,0 +1,1 @@
+0 0 1 * * /app/gen/monthly >> /config/log/snapshot/monthly.log

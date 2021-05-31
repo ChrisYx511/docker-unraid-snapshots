@@ -1,0 +1,9 @@
+#!/usr/bin/with-contenv bash
+## License
+# MIT License
+# See included LICENSE document or https://opensource.org/licenses/MIT
+
+for f in /app/gen/*; do 
+    (crontab -l ; cat "/app/crontabs/$(basename $f)"; echo) | crontab -
+done
+exit $?

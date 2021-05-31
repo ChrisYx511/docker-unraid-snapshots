@@ -1,0 +1,9 @@
+#!/usr/bin/with-contenv bash
+## License
+# MIT License
+# See included LICENSE document or https://opensource.org/licenses/MIT
+
+rm -rf /app/gen
+touch /tmp/blank
+cat /tmp/blank | crontab -
+rm /tmp/blank

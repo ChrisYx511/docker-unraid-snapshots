@@ -1,0 +1,37 @@
+#!/usr/bin/with-contenv bash
+## License
+# MIT License
+# See included LICENSE document or https://opensource.org/licenses/MIT
+
+if [ $HOURLY_SNAP = true ]; then
+TYPE=hourly
+cp /app/script.sh /app/gen/$TYPE
+sed -i "/^#\!.*/a MAX_SNAPS=$HOURLY_SNAP_KEEP" /app/gen/$TYPE
+sed -i "/^#\!.*/a SNAPSHOT_TYPE=$TYPE" /app/gen/$TYPE
+fi
+
+if [ $DAILY_SNAP = true ]; then
+TYPE=daily
+cp /app/script.sh /app/gen/$TYPE
+sed -i "/^#\!.*/a MAX_SNAPS=$DAILY_SNAP_KEEP" /app/gen/$TYPE
+sed -i "/^#\!.*/a SNAPSHOT_TYPE=$TYPE" /app/gen/$TYPE
+chmod +x /app/gen/$TYPE
+fi
+
+if [ $WEEKLY_SNAP = true ]; then
+TYPE=weekly
+cp /app/script.sh /app/gen/$TYPE
+sed -i "/^#\!.*/a MAX_SNAPS=$WEEKLY_SNAP_KEEP" /app/gen/$TYPE
+sed -i "/^#\!.*/a SNAPSHOT_TYPE=$TYPE" /app/gen/$TYPE
+chmod +x /app/gen/$TYPE
+fi
+
+if [ $MONTHLY_SNAP = true ]; then
+TYPE=monthly
+cp /app/script.sh /app/gen/$TYPE
+sed -i "/^#\!.*/a MAX_SNAPS=$MONTHLY_SNAP_KEEP" /app/gen/$TYPE
+sed -i "/^#\!.*/a SNAPSHOT_TYPE=$TYPE" /app/gen/$TYPE
+chmod +x /app/gen/$TYPE
+fi
+
+exit $?

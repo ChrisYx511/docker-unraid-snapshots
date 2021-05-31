@@ -1,0 +1,21 @@
+#!/usr/bin/with-contenv bash
+## License
+# MIT License
+# See included LICENSE document or https://opensource.org/licenses/MIT
+
+if [ -d "/config/custom-intervals.d" ]; then
+    mkdir /app/gen/custom
+    for f in /config/custom-intervals.d/*; do
+        if [ $f != "README" ]; then
+        g=$(basename $f)
+        # Generate script
+        cp /app/script.sh "/app/gen/custom/${g%.*}"
+        sed -i "/^#\!.*/a MAX_SNAPS=${g##*.}" /app/gen/custom/${f%.*}
+        sed -i "/^#\!.*/a SNAPSHOT_TYPE=${g%.*}" /app/gen/custom/${f%.*}
+
+        (crontab -l ; cat "$f"; echo "/app/gen/custom/${g%.*} >> /config/log/snapshot/${g%.*}"; echo) | crontab -
+        
+        fi
+    done
+fi
+exit $?

@@ -1,0 +1,9 @@
+#!/usr/bin/with-contenv bash
+## License
+# MIT License
+# See included LICENSE document or https://opensource.org/licenses/MIT
+
+mkdir /config/log
+mkdir /config/log/snapshot
+chmod -R 777 /config/log
+exit $?
