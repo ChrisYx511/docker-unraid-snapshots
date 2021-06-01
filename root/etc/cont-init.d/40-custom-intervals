@@ -6,14 +6,14 @@
 if [ -d "/config/custom-intervals.d" ]; then
     mkdir /app/gen/custom
     for f in /config/custom-intervals.d/*; do
-        if [ $f != "README" ]; then
         g=$(basename $f)
+        if [ $g != "README*" ]; then
         # Generate script
         cp /app/script.sh "/app/gen/custom/${g%.*}"
         sed -i "/^#\!.*/a MAX_SNAPS=${g##*.}" /app/gen/custom/${f%.*}
         sed -i "/^#\!.*/a SNAPSHOT_TYPE=${g%.*}" /app/gen/custom/${f%.*}
-
-        (crontab -l ; cat "$f"; echo "/app/gen/custom/${g%.*} >> /config/log/snapshot/${g%.*}"; echo) | crontab -
+        sed -i "/^#\!.*/a $(echo "$(cat $f | grep "EXCLUDE"),$EXCLUDE")" /app/gen/custom/${f%.*}
+        (crontab -l ; echo "$(sed -n -e 's/^.*CRON=//p' $f) /app/gen/custom/${g%.*} >> /config/log/snapshot/${g%.*}"; echo) | crontab -
         
         fi
     done

@@ -1,2 +1,2 @@
 #!/usr/bin/with-contenv bash
-crond -b -L /config/log/cron.log
+exec crond -b -L /config/log/cron.log
