@@ -3,6 +3,11 @@
 # MIT License
 # See included LICENSE document or https://opensource.org/licenses/MIT
 
+if [ -d "/app/gen" ]; then
+mkdir /app/gen
+chmod -R 777 /app/gen
+fi
+
 if [ $HOURLY_SNAP = true ]; then
     TYPE=hourly
     cp /app/script.sh /app/gen/$TYPE
